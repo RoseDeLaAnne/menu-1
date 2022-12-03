@@ -4,7 +4,9 @@ from rest_framework.serializers import ModelSerializer
 from .models import *
 
 
-class ItemSerializer(ModelSerializer):
+class DishSerializer(ModelSerializer):
     class Meta:
-        model = Item
+        model = Dish
         fields = '__all__'
+
+        depth = 1

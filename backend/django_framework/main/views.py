@@ -8,11 +8,11 @@ from .serializers import *
 
 @api_view(['GET'])
 # @permission_classes([IsAuthenticated])
-def get_items(request):
+def get_dishes(request):
     try:
-        items = Item.objects.all()
+        items = Dish.objects.all()
 
-        serializer = ItemSerializer(
+        serializer = DishSerializer(
             items, many=True)
 
         return Response(serializer.data)

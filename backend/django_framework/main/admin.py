@@ -7,4 +7,4 @@ from .models import *
 
 admin.site.register(Category)
 admin.site.register(Type)
-admin.site.register(Item)
+admin.site.register(Dish)

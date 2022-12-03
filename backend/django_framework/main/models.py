@@ -5,28 +5,25 @@ from django.utils.translation import gettext_lazy as _
 
 class Category(models.Model):
     category_name = models.CharField(max_length=255)
-    category_display_name = models.CharField(max_length=255)
 
     def __str__(self):
-        return self.category_display_name
+        return self.category_name
 
 
 class Type(models.Model):
     type_name = models.CharField(max_length=255)
-    type_display_name = models.CharField(max_length=255)
 
     def __str__(self):
-        return self.type_display_name
+        return self.type_name
 
 
-class Item(models.Model):
-    item_category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    item_weight = models.IntegerField(default=0)
-    item_name = models.CharField(max_length=255)
-    item_display_name = models.CharField(max_length=255)
-    item_price = models.IntegerField(default=0)
-    item_type = models.ForeignKey(Type, on_delete=models.CASCADE)
-    item_img = models.ImageField(upload_to='items', blank=True, null=True)
+class Dish(models.Model):
+    dish_category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    dish_weight = models.IntegerField(default=0)
+    dish_name = models.CharField(max_length=255)
+    dish_price = models.FloatField(default=0.0)    
+    dish_image = models.ImageField(upload_to='items', blank=True, null=True)
+    dish_type = models.ManyToManyField(Type)
 
     def __str__(self):
-        return self.item_display_name
+        return self.dish_name
