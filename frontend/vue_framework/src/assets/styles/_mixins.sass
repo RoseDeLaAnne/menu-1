@@ -1,0 +1,14 @@
+@mixin font($font-family, $font-style, $font-weight, $url)
+    @font-face
+        font-family: $font-family
+        font-style: $font-style
+        font-weight: $font-weight
+        src: url($url) format('woff2')
+
+@mixin mediaW($max-width)
+    @media (max-width: $max-width)
+        @content
+
+@mixin mediaH($max-height)
+    @media (max-height: $max-height)
+        @content
