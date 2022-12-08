@@ -1,0 +1,53 @@
+@import ./functions
+@import ./keyframes
+@import ./mixins
+@import ./variables
+
+body
+  &.body_no-scroll
+    overflow: hidden
+
+.page
+  // &.page_no-scroll
+  //     position: fixed
+
+.wrap
+  padding-left: 25%
+
+  @include mediaW($xxl)
+    padding-left: rem(350)
+
+  @include mediaW($md)
+    padding-left: 0
+
+.main
+  display: flex
+  flex-direction: column
+
+img,
+video
+  width: 100%
+
+// TEXTAREA
+
+.textarea
+  // 
+
+// INPUT
+
+.input
+  position: relative
+
+// SELECT
+
+.select
+  position: relative
+
+  cursor: pointer
+
+// BUTTON
+
+.button
+  // &.button_
+
+// TABLE
