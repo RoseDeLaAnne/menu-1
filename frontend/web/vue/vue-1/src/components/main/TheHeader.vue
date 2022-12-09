@@ -39,11 +39,13 @@ export default {
 @import @/assets/styles/variables
 
 .header
-  padding-right: rem(56)
-  padding-left: rem(56)
+  // padding-right: rem(56)
+  // padding-left: rem(56)
+  padding-right: calc(rem(32) + (56 - 32) * ((100vw - 768px) / (1920 - 768)))
+  padding-left: calc(rem(32) + (56 - 32) * ((100vw - 768px) / (1920 - 768)))
 
-  // height: rem(144)
   height: calc(rem(96) + (144 - 96) * ((100vw - 425px) / (1920 - 425)))
+  // @include adaptiveValue('height', 96, 144, 1920)
 
   display: flex
 
@@ -51,12 +53,17 @@ export default {
   justify-content: space-between
 
   @include mediaW($md)
-    padding-right: rem(32)
-    padding-left: rem(32)
+    // padding-right: rem(32)
+    // padding-left: rem(32)
+    padding-right: calc(rem(24) + (32 - 24) * ((100vw - 425px) / (768 - 425)))
+    padding-left: calc(rem(24) + (32 - 24) * ((100vw - 425px) / (768 - 425)))
 
   @include mediaW($mobile-l)
-    padding-right: rem(24)
-    padding-left: rem(24)
+    // padding-right: rem(24)
+    // padding-left: rem(24)
+
+    padding-right: calc(rem(16) + (24 - 16) * ((100vw - 320px) / (425 - 320)))
+    padding-left: calc(rem(16) + (24 - 16) * ((100vw - 320px) / (425 - 320)))
 
     height: rem(96)
 

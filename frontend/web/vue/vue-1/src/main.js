@@ -4,7 +4,6 @@ import App from "./App.vue";
 
 import "./assets/styles/_config.sass";
 import "./assets/styles/_general.sass";
-import "./assets/styles/_keyframes.sass";
 import "./assets/styles/_transitions.sass";
 
 import "./registerServiceWorker";

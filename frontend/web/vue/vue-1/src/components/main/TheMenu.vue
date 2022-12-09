@@ -31,22 +31,22 @@
     gap: calc(rem(24) + (32 - 24) * ((100vw - 425px) / (768 - 425)))
 
   @include mediaW($mobile-l)
-    padding-right: rem(24)
-    padding-left: rem(24)
+    // padding-right: rem(24)
+    // padding-left: rem(24)
+    padding-right: calc(rem(16) + (24 - 16) * ((100vw - 320px) / (425 - 320)))
+    padding-left: calc(rem(16) + (24 - 16) * ((100vw - 320px) / (425 - 320)))
 
-    gap: rem(24)
-
-  @include mediaW($mobile-l)
-    padding-right: rem(24)
-    padding-left: rem(24)
-
-    gap: rem(24)
+    // gap: rem(24)
+    gap: calc(rem(16) + (24 - 16) * ((100vw - 320px) / (425 - 320)))
 
   @include mediaW($mobile-s)
-    padding-right: rem(16)
-    padding-left: rem(16)
+    // padding-right: rem(16)
+    // padding-left: rem(16)
+    padding-right: calc(rem(8) + (16 - 8) * ((100vw - 280px) / (320 - 280)))
+    padding-left: calc(rem(8) + (16 - 8) * ((100vw - 280px) / (320 - 280)))
 
-    gap: rem(16)
+    // gap: rem(16)
+    gap: calc(rem(8) + (16 - 8) * ((100vw - 320px) / (320 - 280)))
 
   @include mediaW($mobile-xs)
     padding-right: rem(8)
