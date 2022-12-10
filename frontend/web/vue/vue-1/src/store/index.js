@@ -1,113 +1,23 @@
+import jwt_decode from "jwt-decode";
+
 import { createStore } from "vuex";
 
+import { getCookie } from "@/utils/cookie";
+
+import { headerModule } from "./modules/headerModule";
 import { menuViewModule } from "./modules/menuViewModule";
+import { profileModule } from "./modules/profileModule";
 
 export default createStore({
   state: {
-    dishes: [
-      {
-        id: 0,
-        category: "salads",
-        weight: 342,
-        name: "Halumini",
-        price: 3.6,
-        types: [
-          {
-            id: 0,
-            name: "vegan",
-          },
-        ],
-        color: "#000",
-        backgroundColor: "#e1eabd",
-        imageUrl: "",
-      },
-      {
-        id: 1,
-        category: "meat",
-        weight: 482,
-        name: "Beef",
-        price: 7.4,
-        types: [],
-        color: "#fff",
-        backgroundColor: "#896857",
-        imageUrl: "",
-      },
-      {
-        id: 2,
-        category: "pasta",
-        weight: 372,
-        name: "Alfredo",
-        price: 4.1,
-        types: [],
-        color: "#000",
-        backgroundColor: "#f4e3af",
-        imageUrl: "",
-      },
-      {
-        id: 3,
-        category: "breakfast",
-        weight: 143,
-        name: "Pancakes",
-        price: 2.5,
-        types: [
-          {
-            id: 0,
-            name: "vegan",
-          },
-        ],
-        color: "#fff",
-        backgroundColor: "#442e19",
-        imageUrl: "",
-      },
-      {
-        id: 4,
-        category: "lunch",
-        weight: 543,
-        name: "Red fish",
-        price: 7.5,
-        types: [
-          {
-            id: 0,
-            name: "hot",
-          },
-        ],
-        color: "#000",
-        backgroundColor: "#de8871",
-        imageUrl: "",
-      },
-      {
-        id: 5,
-        category: "soup",
-        weight: 653,
-        name: "Egg soup",
-        price: 10.8,
-        types: [
-          {
-            id: 0,
-            name: "hot",
-          },
-        ],
-        color: "#fff",
-        backgroundColor: "#231e15",
-        imageUrl: "",
-      },
-      {
-        id: 6,
-        category: "beverages",
-        weight: 253,
-        name: "Red apple",
-        price: 3.8,
-        types: [
-          {
-            id: 0,
-            name: "vegan",
-          },
-        ],
-        color: "#fff",
-        backgroundColor: "#792314",
-        imageUrl: "",
-      },
-    ],
+    accessToken: "",
+    refreshToken: "",
+
+    userId: "",
+    isSuperUser: false,
+    telegramUserId: "",
+    jti: '',
+
     categories: [
       {
         id: 0,
@@ -159,82 +69,82 @@ export default createStore({
     ],
   },
   getters: {
-    dishesGetter(state, getters) {
-      var dishes = [];
-      var newDishes = [];
-      var newDishes2 = [];
-      var newDishes3 = [];
+    // dishesGetter(state, getters) {
+    //   var dishes = [];
+    //   var newDishes = [];
+    //   var newDishes2 = [];
+    //   var newDishes3 = [];
 
-      if (!getters.categoriesIsEmpty && !getters.typesIsEmpty) {
-        for (const category of state.categories) {
-          if (category.selected) {
-            dishes.push(
-              state.dishes.filter((dish) => dish.category === category.name)
-            );
-          }
-        }
+    //   if (!getters.categoriesIsEmpty && !getters.typesIsEmpty) {
+    //     for (const category of state.categories) {
+    //       if (category.selected) {
+    //         dishes.push(
+    //           state.dishes.filter((dish) => dish.category === category.name)
+    //         );
+    //       }
+    //     }
 
-        for (const dish of dishes) {
-          for (const dishNested of dish) {
-            newDishes.push(dishNested);
-          }
-        }
+    //     for (const dish of dishes) {
+    //       for (const dishNested of dish) {
+    //         newDishes.push(dishNested);
+    //       }
+    //     }
 
-        for (const type of state.types) {
-          if (type.selected) {
-            newDishes2.push(
-              newDishes.filter((dish) =>
-                dish.types.some((dishType) => dishType.name === type.name)
-              )
-            );
-          }
-        }
-        for (const dish of newDishes2) {
-          for (const dishNested of dish) {
-            newDishes3.push(dishNested);
-          }
-        }
+    //     for (const type of state.types) {
+    //       if (type.selected) {
+    //         newDishes2.push(
+    //           newDishes.filter((dish) =>
+    //             dish.types.some((dishType) => dishType.name === type.name)
+    //           )
+    //         );
+    //       }
+    //     }
+    //     for (const dish of newDishes2) {
+    //       for (const dishNested of dish) {
+    //         newDishes3.push(dishNested);
+    //       }
+    //     }
 
-        return newDishes3;
-      } else if (!getters.categoriesIsEmpty && getters.typesIsEmpty) {
-        for (const category of state.categories) {
-          if (category.selected) {
-            dishes.push(
-              state.dishes.filter((dish) => dish.category === category.name)
-            );
-          }
-        }
+    //     return newDishes3;
+    //   } else if (!getters.categoriesIsEmpty && getters.typesIsEmpty) {
+    //     for (const category of state.categories) {
+    //       if (category.selected) {
+    //         dishes.push(
+    //           state.dishes.filter((dish) => dish.category === category.name)
+    //         );
+    //       }
+    //     }
 
-        for (const dish of dishes) {
-          for (const dishNested of dish) {
-            newDishes.push(dishNested);
-          }
-        }
+    //     for (const dish of dishes) {
+    //       for (const dishNested of dish) {
+    //         newDishes.push(dishNested);
+    //       }
+    //     }
 
-        return newDishes;
-      } else if (getters.categoriesIsEmpty && getters.typesIsEmpty) {
-        return state.dishes;
-      } else if (getters.categoriesIsEmpty && !getters.typesIsEmpty) {
-        for (const type of state.types) {
-          if (type.selected) {
-            newDishes2.push(
-              state.dishes.filter((dish) =>
-                dish.types.some((dishType) => dishType.name === type.name)
-              )
-            );
-          }
-        }
-        for (const dish of newDishes2) {
-          for (const dishNested of dish) {
-            newDishes3.push(dishNested);
-          }
-        }
+    //     return newDishes;
+    //   } else if (getters.categoriesIsEmpty && getters.typesIsEmpty) {
+    //     return state.dishes;
+    //   } else if (getters.categoriesIsEmpty && !getters.typesIsEmpty) {
+    //     for (const type of state.types) {
+    //       if (type.selected) {
+    //         newDishes2.push(
+    //           state.dishes.filter((dish) =>
+    //             dish.types.some((dishType) => dishType.name === type.name)
+    //           )
+    //         );
+    //       }
+    //     }
+    //     for (const dish of newDishes2) {
+    //       for (const dishNested of dish) {
+    //         newDishes3.push(dishNested);
+    //       }
+    //     }
 
-        return newDishes3;
-      } else {
-        return state.dishes;
-      }
-    },
+    //     return newDishes3;
+    //   } else {
+    //     return state.dishes;
+    //   }
+    // },
     categoriesIsEmpty(state) {
       const selectedCategories = state.categories.filter(
         (category) => category.selected
@@ -257,9 +167,39 @@ export default createStore({
     },
   },
   mutations: {
-    setDishes(state, dishes) {
-      state.dishes = dishes;
+    initializeStore(state) {
+      if (getCookie(`accessToken`)) {
+        const accessToken = getCookie(`accessToken`);
+
+        state.accessToken = accessToken;
+        state.userId = jwt_decode(accessToken).user_id;
+        state.jti = jwt_decode(accessToken).jti;
+      } else {
+        state.accessToken = "";
+      }
+
+      if (getCookie(`refreshToken`)) {
+        state.refreshToken = getCookie(`refreshToken`);
+      } else {
+        state.refreshToken = "";
+      }
     },
+    setAccessToken(state, accessToken) {
+      state.accessToken = accessToken;
+      state.userId = jwt_decode(accessToken).user_id;
+      state.jti = jwt_decode(accessToken).jti;
+    },
+    setRefreshToken(state, refreshToken) {
+      state.refreshToken = refreshToken;
+    },
+
+    setIsSuperUser(state, isSuperUser) {
+      state.isSuperUser = isSuperUser
+    },
+    setTelegramUserId(state, telegramUserId) {
+      state.telegramUserId = telegramUserId
+    },
+
     setCategories(state, categories) {
       state.categories = categories;
     },
@@ -275,6 +215,8 @@ export default createStore({
   },
   actions: {},
   modules: {
+    header: headerModule,
     menuView: menuViewModule,
+    profile: profileModule,
   },
 });

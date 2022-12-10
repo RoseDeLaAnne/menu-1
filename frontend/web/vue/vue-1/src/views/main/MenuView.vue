@@ -11,6 +11,8 @@
           <MenuDish v-for="dish in dishesGetter" :key="dish.id" :dish="dish" />
         </Menu>
       </main>
+
+      <div v-if="$store.state.isSuperUser">Add dish</div>
     </div>
 
     <Transition>
@@ -37,7 +39,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters, mapMutations } from "vuex";
+import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
 
 import Aside from "@/components/main/TheAside.vue";
 import Header from "@/components/main/TheHeader.vue";
@@ -72,7 +74,7 @@ export default {
       modalIsActive: (state) => state.menuView.modalIsActive,
     }),
     ...mapGetters({
-      dishesGetter: "dishesGetter",
+      dishesGetter: "menuView/dishesGetter",
       categoriesIsEmpty: "categoriesIsEmpty",
       typesIsEmpty: "typesIsEmpty",
     }),
@@ -84,6 +86,12 @@ export default {
       modalCategorySelectCategory: "modalCategorySelectCategory",
       modalTypeSelectType: "modalTypeSelectType",
     }),
+    ...mapActions({
+      getDishes: "menuView/getDishes",
+    }),
+  },
+  mounted() {
+    this.getDishes();
   },
   setup() {
     //

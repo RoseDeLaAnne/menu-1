@@ -1,5 +1,9 @@
 <template>
-  <li @click="selectCategory(category)" class="categories__category" :class="{'categories__category_active' : category.selected}">
+  <li
+    @click="selectCategory(category)"
+    class="categories__category"
+    :class="{ categories__category_active: category.selected }"
+  >
     <h2 class="categories__category-name">{{ category.name }}</h2>
   </li>
 </template>
@@ -14,8 +18,8 @@ export default {
   },
   methods: {
     selectCategory(category) {
-      this.$emit('selectCategory', category)
-    }
+      this.$emit("selectCategory", category);
+    },
   },
   setup() {
     //
@@ -25,6 +29,8 @@ export default {
 
 <style lang="sass" scoped>
 @import @/assets/styles/functions
+@import @/assets/styles/mixins
+@import @/assets/styles/variables
 
 .categories__category
   position: relative
@@ -42,6 +48,7 @@ export default {
       color: #fff
 
 .categories__category-name
+  // @include adaptiveValue('font-size', 21, 24, 768, 320)
   font-size: rem(24)
 
   letter-spacing: .1em
@@ -49,6 +56,9 @@ export default {
   color: #DDDDDD
 
   transition: color .25s ease-in-out
+
+  @include mediaW($mobile-s)
+    font-size: rem(21)
 
   // &::before
   //   content: ''

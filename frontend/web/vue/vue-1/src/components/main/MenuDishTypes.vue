@@ -13,7 +13,7 @@
   position: absolute
 
   bottom: rem(24)
-  right: rem(16)
+  left: rem(16)
 
   display: flex
 

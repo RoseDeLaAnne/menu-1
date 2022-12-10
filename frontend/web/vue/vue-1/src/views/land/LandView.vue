@@ -2,8 +2,8 @@
   <div class="page">
     <div class="page__box-1">
       <div class="page__loader"></div>
-      <h1 class="page__title">LandView</h1>
-      <router-link to="/menu" class="page__link">Menu</router-link>
+      <h1 class="page__title">{{ $t("land.landView.name") }}</h1>
+      <router-link to="/auth" class="page__link">Auth</router-link>
     </div>
   </div>
 </template>

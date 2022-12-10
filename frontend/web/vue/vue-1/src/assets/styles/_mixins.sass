@@ -13,7 +13,7 @@
   @media (max-height: $max-height)
     @content
 
-@mixin adaptiveValue($property, $minSize, $startSize, $maxWidth)
+@mixin adaptiveValue($property, $minSize, $startSize, $maxWidth, $minWidth)
   $addSize: $startSize - $minSize
-  
-  #{$property}: calc(#{$minSize + px} + #{$addSize} * ((100vw - 280px) / #{$maxWidth - 280}) )
+
+  #{$property}: calc(#{($minSize / 16) + rem} + #{$addSize} * ((100vw - #{$minWidth + px}) / #{$maxWidth - $minWidth}) )

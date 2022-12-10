@@ -2,7 +2,7 @@
   <header id="header" class="header">
     <div class="header__box-1">
       <div class="path">
-        <h1 class="path__name">{{ data.viewName }}</h1>
+        <h1 class="path__name">{{ data.view.name }}</h1>
       </div>
     </div>
     <div class="header__box-2">
@@ -20,12 +20,27 @@
 </template>
 
 <script>
+import { mapState, mapActions } from "vuex";
+
 export default {
   props: {
     data: {
       type: Object,
       required: true,
     },
+  },
+  computed: {
+    ...mapState({
+      userData: (state) => state.header.userData,
+    }),
+  },
+  methods: {
+    ...mapActions({
+      getUserData: "header/getUserData",
+    }),
+  },
+  mounted() {
+    this.getUserData();
   },
   setup() {
     //

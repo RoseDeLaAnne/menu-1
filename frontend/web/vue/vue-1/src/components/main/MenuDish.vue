@@ -2,7 +2,7 @@
   <div class="menu__dish" :style="menuDishBackgroundColor">
     <div class="menu__dish-box-1">
       <p class="menu__dish-category" :style="menuDishColor">
-        {{ dish.category }}
+        {{ dish.category.name }}
       </p>
       <p class="menu__dish-weight" :style="menuDishColor">
         {{ dish.weight }} g
@@ -16,7 +16,7 @@
     </div>
     <div class="menu__dish-box-3">
       <video
-        :src="require(`@/assets/videos/main/${dish.category}.mp4`)"
+        :src="require(`@/assets/videos/main/${dish.category.name}.mp4`)"
         class="menu__dish-video"
         muted
         loop
@@ -25,9 +25,9 @@
 
       <MenuDishTypes>
         <MenuDishType
-          v-for="dishTtype in dish.types"
-          :key="dishTtype.id"
-          :type="dishTtype"
+          v-for="dishType in dish.types"
+          :key="dishType.id"
+          :type="dishType"
         />
       </MenuDishTypes>
     </div>
@@ -51,7 +51,7 @@ export default {
         "--color": this.dish.color,
       },
       menuDishBackgroundColor: {
-        "--backgroundColor": this.dish.backgroundColor,
+        "--backgroundColor": this.dish.background_color,
       },
     };
   },
