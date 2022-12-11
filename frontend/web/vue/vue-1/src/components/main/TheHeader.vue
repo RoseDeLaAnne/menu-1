@@ -6,9 +6,14 @@
       </div>
     </div>
     <div class="header__box-2">
-      <button class="reserve-table">
+      <!-- <button class="reserve-table">
         <h2 class="reserve-table__name">Reserve A Table</h2>
-      </button>
+      </button> -->
+      <div class="profile">
+        <router-link to="/profile">
+          <img :src="userData.avatar" alt="" class="profile__avatar" />
+        </router-link>
+      </div>
 
       <div @click="$emit('showModal')" class="menu">
         <svg class="menu__icon">
@@ -94,9 +99,16 @@ export default {
   @include mediaW($mobile-s)
     font-size: rem(42)
 
+.profile,
 .reserve-table
   @include mediaW($md)
     display: none
+
+.profile__avatar
+  width: rem(48)
+  height: rem(48)
+
+  border-radius: 50%
 
 .reserve-table__name
   position: relative
