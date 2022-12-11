@@ -28,8 +28,6 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-@import @/assets/styles/functions
-
 .categories__category
   padding-left: rem(56)
 

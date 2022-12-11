@@ -5,10 +5,6 @@
 </template>
 
 <style lang="sass" scoped>
-@import @/assets/styles/functions
-@import @/assets/styles/mixins
-@import @/assets/styles/variables
-
 .menu__dish-box-31
   position: absolute
 

@@ -31,8 +31,6 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-@import @/assets/styles/functions
-
 .types__type
   display: flex
 

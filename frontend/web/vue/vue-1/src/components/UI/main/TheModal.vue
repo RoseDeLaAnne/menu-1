@@ -23,10 +23,6 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-@import @/assets/styles/functions
-@import @/assets/styles/mixins
-@import @/assets/styles/variables
-
 .modal
   position: fixed
 

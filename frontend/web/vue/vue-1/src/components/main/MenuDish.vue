@@ -66,10 +66,6 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-@import @/assets/styles/functions
-@import @/assets/styles/mixins
-@import @/assets/styles/variables
-
 .menu__dish,
 .menu__dish-box-1,
 .menu__dish-box-2,

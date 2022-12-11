@@ -1,9 +1,3 @@
-import axios from "axios";
-
-import router from "@/router/index";
-
-import { setCookie } from "@/utils/cookie";
-
 export const menuViewModule = {
   state: () => ({
     headerData: {
@@ -233,32 +227,6 @@ export const menuViewModule = {
       state.dishes = dishes;
     },
   },
-  actions: {
-    async getDishes({ commit, rootState }) {
-      const url = `http://192.168.0.104:8000/api/dishes/`;
-
-      const response = await axios.get(url, {
-        headers: { Authorization: `Bearer ${rootState.accessToken}` },
-      });
-
-      if (response.status === 200) {
-        commit("setDishes", response.data);
-      }
-    },
-
-    async refreshToken({ commit, rootState }) {
-      const url = `http://192.168.0.104:8000/api/token/refresh/`;
-      const json = {
-        refresh: rootState.refreshToken,
-      };
-
-      const response = await axios.post(url, json);
-
-      if (response.status === 200) {
-        setCookie(`accessToken`, response.data.access);
-        commit("setAccessToken", response.data.access, { root: true });
-      }
-    },
-  },
+  actions: {},
   namespaced: true,
 };

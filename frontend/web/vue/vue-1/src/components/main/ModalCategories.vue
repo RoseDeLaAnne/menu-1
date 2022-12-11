@@ -7,8 +7,6 @@
 </template>
 
 <style lang="sass" scoped>
-@import @/assets/styles/functions
-
 .categories
   position: absolute
 
