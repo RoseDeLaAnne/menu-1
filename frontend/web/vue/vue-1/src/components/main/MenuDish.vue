@@ -25,9 +25,9 @@
 
       <MenuDishTypes>
         <MenuDishType
-          v-for="dishType in dish.types"
-          :key="dishType.id"
-          :type="dishType"
+          v-for="type in dish.types"
+          :key="type.id"
+          :type="type"
         />
       </MenuDishTypes>
     </div>
@@ -39,6 +39,10 @@ import MenuDishTypes from "@/components/main/MenuDishTypes.vue";
 import MenuDishType from "@/components/main/MenuDishType.vue";
 
 export default {
+  components: {
+    MenuDishTypes,
+    MenuDishType,
+  },
   props: {
     dish: {
       type: Object,
@@ -55,10 +59,6 @@ export default {
       },
     };
   },
-  components: {
-    MenuDishTypes,
-    MenuDishType,
-  },
   setup() {
     //
   },
@@ -73,7 +73,7 @@ export default {
   display: flex
 
 .menu__dish
-  padding-top: rem(48)
+  @include adaptiveValue('padding-top', 32, 48, 1920, 425)
 
   flex: 1 1 rem(352)
   flex-direction: column
@@ -85,7 +85,7 @@ export default {
   animation: scaleFromZeroToOne .5s ease-in-out, opacityFromZeroToOne .25s ease-in-out
 
   @include mediaW($mobile-l)
-    padding-top: rem(32)
+    @include adaptiveValue('padding-top', 24, 32, 425, 320)
 
   @include mediaW($mobile-s)
     padding-top: rem(24)
@@ -102,8 +102,8 @@ export default {
 
 .menu__dish-box-1,
 .menu__dish-box-2
-  padding-right: rem(24)
-  padding-left: rem(24)
+  @include adaptiveValue('padding-right', 16, 24, 1920, 320)
+  @include adaptiveValue('padding-left', 16, 24, 1920, 320)
 
   justify-content: space-between
 
@@ -134,7 +134,7 @@ export default {
 
 .menu__dish-category,
 .menu__dish-weight
-  font-size: rem(16)
+  @include adaptiveValue('font-size', 14, 16, 1920, 320)
   font-weight: 300
 
   @include mediaW($mobile-s)
@@ -142,7 +142,7 @@ export default {
 
 .menu__dish-name,
 .menu__dish-price
-  font-size: rem(24)
+  @include adaptiveValue('font-size', 21, 24, 1920, 320)
   font-weight: 700
 
   @include mediaW($mobile-s)
@@ -158,7 +158,4 @@ export default {
 
   &:hover
     transform: scale(1.15)
-
-/* .menu__dish-video
-  display: none */
 </style>

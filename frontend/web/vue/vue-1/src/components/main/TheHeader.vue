@@ -6,10 +6,6 @@
       </div>
     </div>
     <div class="header__box-2">
-      <button class="reserve-table">
-        <h2 class="reserve-table__name">Reserve A Table</h2>
-      </button>
-
       <div @click="$emit('showModal')" class="menu">
         <svg class="menu__icon">
           <use href="@/assets/icons/sprites.svg#menu" />
@@ -35,13 +31,10 @@ export default {
 
 <style lang="sass" scoped>
 .header
-  // padding-right: rem(56)
-  // padding-left: rem(56)
-  padding-right: calc(rem(32) + (56 - 32) * ((100vw - 768px) / (1920 - 768)))
-  padding-left: calc(rem(32) + (56 - 32) * ((100vw - 768px) / (1920 - 768)))
+  @include adaptiveValue('padding-right', 32, 56, 1920, 768)
+  @include adaptiveValue('padding-left', 32, 56, 1920, 768)
 
-  height: calc(rem(96) + (144 - 96) * ((100vw - 425px) / (1920 - 425)))
-  // @include adaptiveValue('height', 96, 144, 1920)
+  @include adaptiveValue('height', 96, 144, 1920, 425)
 
   display: flex
 
@@ -49,17 +42,12 @@ export default {
   justify-content: space-between
 
   @include mediaW($md)
-    // padding-right: rem(32)
-    // padding-left: rem(32)
-    padding-right: calc(rem(24) + (32 - 24) * ((100vw - 425px) / (768 - 425)))
-    padding-left: calc(rem(24) + (32 - 24) * ((100vw - 425px) / (768 - 425)))
+    @include adaptiveValue('padding-right', 24, 32, 768, 425)
+    @include adaptiveValue('padding-left', 24, 32, 768, 425)
 
   @include mediaW($mobile-l)
-    // padding-right: rem(24)
-    // padding-left: rem(24)
-
-    padding-right: calc(rem(16) + (24 - 16) * ((100vw - 320px) / (425 - 320)))
-    padding-left: calc(rem(16) + (24 - 16) * ((100vw - 320px) / (425 - 320)))
+    @include adaptiveValue('padding-right', 16, 24, 425, 320)
+    @include adaptiveValue('padding-left', 16, 24, 425, 320)
 
     height: rem(96)
 
@@ -68,37 +56,12 @@ export default {
     padding-left: rem(16)
 
 .path__name
-  // font-size: rem(48)
-  font-size: calc(rem(42) + (48 - 42) * ((100vw - 320px) / (1920 - 320)))
+  @include adaptiveValue('font-size', 42, 48, 1920, 320)
+
   font-weight: 600
 
   @include mediaW($mobile-s)
     font-size: rem(42)
-
-.reserve-table
-  @include mediaW($md)
-    display: none
-
-.reserve-table__name
-  position: relative
-
-  font-size: rem(24)
-
-  text-transform: lowercase
-  letter-spacing: .05em
-
-  &::after
-    content: ''
-
-    position: absolute
-
-    bottom: rem(-5)
-    left: -5%
-
-    width: 110%
-    height: 1px
-
-    background-color: #939393
 
 .menu
   display: none
@@ -109,10 +72,8 @@ export default {
     display: block
 
 .menu__icon
-  // width: rem(32)
-  // height: rem(32)
-  width: calc(rem(24) + (32 - 24) * ((100vw - 320px) / (1920 - 320)))
-  height: calc(rem(24) + (32 - 24) * ((100vw - 320px) / (1920 - 320)))
+  @include adaptiveValue('width', 24, 32, 768, 320)
+  @include adaptiveValue('height', 24, 32, 768, 320)
 
   @include mediaW($mobile-s)
     width: rem(24)

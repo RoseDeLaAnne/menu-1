@@ -37,24 +37,27 @@ export default {
 .close
   position: fixed
 
+  top: rem(56)
+  right: rem(56)
+
   cursor: pointer
 
-  @include adaptiveValue('top', 32, 56, 1920, 425)
-  @include adaptiveValue('right', 24, 32, 1920, 425)
-
-  @include mediaW($mobile-l)
-    @include adaptiveValue('top', 36, 32, 425, 320)
-    @include adaptiveValue('right', 16, 24, 425, 320)
+  @include mediaW($md)
+    top: rem(36)
+    @include adaptiveValue('right', 16, 32, 768, 320)
 
   @include mediaW($mobile-s)
-    top: rem(36)
     right: rem(16)
 
 .close__icon
-  @include adaptiveValue('width', 24, 32, 1920, 320)
-  @include adaptiveValue('height', 24, 32, 1920, 320)
+  width: rem(32)
+  height: rem(32)
 
   fill: #fff
+
+  @include mediaW($md)
+    @include adaptiveValue('width', 24, 32, 768, 320)
+    @include adaptiveValue('height', 24, 32, 768, 320)
 
   @include mediaW($mobile-s)
     width: rem(24)

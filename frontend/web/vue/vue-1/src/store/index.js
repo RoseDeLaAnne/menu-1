@@ -1,6 +1,6 @@
 import { createStore } from "vuex";
 
-import { menuViewModule } from "./modules/menuViewModule";
+import { menuViewModule } from "./modules/views/menuViewModule";
 
 export default createStore({
   state: {
@@ -55,21 +55,21 @@ export default createStore({
     ],
   },
   getters: {
-    categoriesIsEmpty(state) {
-      const selectedCategories = state.categories.filter(
-        (category) => category.selected
-      );
-
-      if (selectedCategories.length === 0) {
+    selectedCategories(state) {
+      return state.categories.filter((category) => category.selected);
+    },
+    selectedTypes(state) {
+      return state.types.filter((type) => type.selected);
+    },
+    categoriesIsEmpty(state, getters) {
+      if (getters.selectedCategories.length === 0) {
         return true;
       } else {
         return false;
       }
     },
-    typesIsEmpty(state) {
-      const selectedTypes = state.types.filter((type) => type.selected);
-
-      if (selectedTypes.length === 0) {
+    typesIsEmpty(state, getters) {
+      if (getters.selectedTypes.length === 0) {
         return true;
       } else {
         return false;
@@ -83,11 +83,13 @@ export default createStore({
     setTypes(state, types) {
       state.types = types;
     },
-    modalCategorySelectCategory(state, category) {
+    categorySelectCategory(state, category) {
       state.categories[category.id].selected = !category.selected;
+      localStorage.setItem("categories", JSON.stringify(state.categories));
     },
-    modalTypeSelectType(state, type) {
+    typeSelectType(state, type) {
       state.types[type.id].selected = !type.selected;
+      localStorage.setItem("types", JSON.stringify(state.types));
     },
   },
   actions: {},

@@ -15,7 +15,7 @@
 
   align-items: center
 
-  column-gap: rem(12)
+  @include adaptiveValue('column-gap', 8, 12, 1920, 320)
 
   @include mediaW($mobile-s)
     column-gap: rem(8)

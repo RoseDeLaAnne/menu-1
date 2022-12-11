@@ -1,23 +1,23 @@
 <template>
   <aside id="aside" class="aside">
     <div class="aside__box-1">
-      <AsideCategories>
-        <AsideCategory
+      <Categories>
+        <Category
           v-for="category in categories"
           :key="category.id"
           :category="category"
-          @selectCategory="modalCategorySelectCategory"
+          @selectCategory="categorySelectCategory"
         />
-      </AsideCategories>
+      </Categories>
     </div>
     <div class="aside__box-2">
-      <AsideTypes
-        ><AsideType
-          v-for="dishType in types"
-          :key="dishType.id"
-          :type="dishType"
-          @selectType="modalTypeSelectType"
-      /></AsideTypes>
+      <Types
+        ><Type
+          v-for="type in types"
+          :key="type.id"
+          :type="type"
+          @selectType="typeSelectType"
+      /></Types>
     </div>
   </aside>
 </template>
@@ -25,17 +25,17 @@
 <script>
 import { mapState, mapMutations } from "vuex";
 
-import AsideCategories from "@/components/main/AsideCategories.vue";
-import AsideCategory from "@/components/main/AsideCategory.vue";
-import AsideTypes from "@/components/main/AsideTypes.vue";
-import AsideType from "@/components/main/AsideType.vue";
+import Categories from "@/components/main/TheCategories.vue";
+import Category from "@/components/main/TheCategory.vue";
+import Types from "@/components/main/TheTypes.vue";
+import Type from "@/components/main/TheType.vue";
 
 export default {
   components: {
-    AsideCategories,
-    AsideCategory,
-    AsideTypes,
-    AsideType,
+    Categories,
+    Category,
+    Types,
+    Type,
   },
   computed: {
     ...mapState({
@@ -45,8 +45,8 @@ export default {
   },
   methods: {
     ...mapMutations({
-      modalCategorySelectCategory: "modalCategorySelectCategory",
-      modalTypeSelectType: "modalTypeSelectType",
+      categorySelectCategory: "categorySelectCategory",
+      typeSelectType: "typeSelectType",
     }),
   },
   setup() {

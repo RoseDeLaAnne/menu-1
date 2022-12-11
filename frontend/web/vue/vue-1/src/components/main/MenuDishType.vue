@@ -40,9 +40,9 @@ export default {
     box-shadow: 0 5px 10px rgba(#000, .25)
 
 .menu__dish-type-icon
-  width: rem(32)
-  height: rem(32)
-
+  @include adaptiveValue('width', 24, 32, 1920, 320)
+  @include adaptiveValue('height', 24, 32, 1920, 320)
+  
   @include mediaW($mobile-s)
     width: rem(24)
     height: rem(24)

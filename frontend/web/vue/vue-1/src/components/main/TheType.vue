@@ -1,5 +1,9 @@
 <template>
-  <li @click="selectType(type)" class="types__type" :class="{'types__type_active' : type.selected}">
+  <li
+    @click="$emit('selectType', type)"
+    class="types__type"
+    :class="{ types__type_modal: isModal, types__type_active: type.selected }"
+  >
     <div class="types__type-box-1">
       <img
         :src="require(`@/assets/icons/main/${type.name}.svg`)"
@@ -14,15 +18,12 @@
 <script>
 export default {
   props: {
+    isModal: Boolean,
+
     type: {
       type: Object,
       required: true,
     },
-  },
-  methods: {
-    selectType(type) {
-      this.$emit('selectType', type)
-    }
   },
   setup() {
     //
@@ -44,9 +45,6 @@ export default {
 
   cursor: pointer
 
-  @include mediaW($mobile-s)
-    column-gap: rem(8)
-
   &.types__type_active
     opacity: 1
 
@@ -62,18 +60,37 @@ export default {
   width: rem(28)
   height: rem(28)
 
-  @include mediaW($mobile-s)
-    width: rem(20)
-    height: rem(20)
-
 .types__type-name
   font-size: rem(14)
   font-weight: 500
 
   letter-spacing: .1em
 
-  color: #fff
+.types__type
+  &.types__type_modal
+    @include mediaW($mobile-l)
+      column-gap: rem(8)
 
-  @include mediaW($mobile-s)
-    font-size: rem(12)
+    .types__type-icon
+      width: rem(28)
+      height: rem(28)
+
+      @include mediaW($md)
+        @include adaptiveValue('width', 20, 28, 768, 320)
+        @include adaptiveValue('height', 20, 28, 768, 320)
+
+      @include mediaW($mobile-s)
+        width: rem(20)
+        height: rem(20)
+
+    .types__type-name
+      font-size: rem(14)
+
+      color: #fff
+
+      @include mediaW($md)
+        @include adaptiveValue('font-size', 12, 14, 768, 320)
+
+      @include mediaW($mobile-s)
+        font-size: rem(12)
 </style>

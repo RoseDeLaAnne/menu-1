@@ -15,22 +15,24 @@
 
     <Transition>
       <Modal v-if="modalIsActive" @closeModal="modalCloseModal">
-        <ModalCategories>
-          <ModalCategory
+        <Categories :isModal="true">
+          <Category
             v-for="category in categories"
             :key="category.id"
             :category="category"
-            @selectCategory="modalCategorySelectCategory"
+            :isModal="true"
+            @selectCategory="categorySelectCategory"
           />
-        </ModalCategories>
-        <ModalTypes>
-          <ModalType
-            v-for="dishType in types"
-            :key="dishType.id"
-            :type="dishType"
-            @selectType="modalTypeSelectType"
+        </Categories>
+        <Types :isModal="true">
+          <Type
+            v-for="type in types"
+            :key="type.id"
+            :type="type"
+            :isModal="true"
+            @selectType="typeSelectType"
           />
-        </ModalTypes>
+        </Types>
       </Modal>
     </Transition>
   </div>
@@ -46,10 +48,10 @@ import Menu from "@/components/main/TheMenu.vue";
 import MenuDish from "@/components/main/MenuDish.vue";
 
 import Modal from "@/components/UI/main/TheModal.vue";
-import ModalCategories from "@/components/main/ModalCategories.vue";
-import ModalCategory from "@/components/main/ModalCategory.vue";
-import ModalTypes from "@/components/main/ModalTypes.vue";
-import ModalType from "@/components/main/ModalType.vue";
+import Categories from "@/components/main/TheCategories.vue";
+import Category from "@/components/main/TheCategory.vue";
+import Types from "@/components/main/TheTypes.vue";
+import Type from "@/components/main/TheType.vue";
 
 export default {
   components: {
@@ -58,10 +60,10 @@ export default {
     Menu,
     MenuDish,
     Modal,
-    ModalCategories,
-    ModalCategory,
-    ModalTypes,
-    ModalType,
+    Categories,
+    Category,
+    Types,
+    Type,
   },
   computed: {
     ...mapState({
@@ -73,17 +75,37 @@ export default {
     }),
     ...mapGetters({
       dishesGetter: "menuView/dishesGetter",
-      categoriesIsEmpty: "categoriesIsEmpty",
-      typesIsEmpty: "typesIsEmpty",
     }),
   },
   methods: {
     ...mapMutations({
       headerShowModal: "menuView/headerShowModal",
       modalCloseModal: "menuView/modalCloseModal",
-      modalCategorySelectCategory: "modalCategorySelectCategory",
-      modalTypeSelectType: "modalTypeSelectType",
+      setCategories: "setCategories",
+      setTypes: "setTypes",
+      categorySelectCategory: "categorySelectCategory",
+      typeSelectType: "typeSelectType",
     }),
+  },
+  mounted() {
+    try {
+      if (localStorage.categories) {
+        this.$store.commit(
+          "setCategories",
+          JSON.parse(localStorage.categories)
+        );
+      }
+    } catch (error) {
+      console.log(error);
+    }
+
+    try {
+      if (localStorage.types) {
+        this.$store.commit("setTypes", JSON.parse(localStorage.types));
+      }
+    } catch (error) {
+      console.log(error);
+    }
   },
   setup() {
     //
@@ -97,22 +119,22 @@ export default {
     display: none
 
 .main
-  padding-bottom: rem(64)
+  @include adaptiveValue('padding-bottom', 56, 64, 1920, 1400)
 
   @include mediaW($xxl)
-    padding-bottom: rem(56)
+    @include adaptiveValue('padding-bottom', 48, 56, 1400, 1200)
 
   @include mediaW($xl)
-    padding-bottom: rem(48)
+    @include adaptiveValue('padding-bottom', 32, 48, 1200, 992)
 
   @include mediaW($lg)
-    padding-bottom: rem(32)
+    @include adaptiveValue('padding-bottom', 24, 32, 992, 425)
 
   @include mediaW($mobile-l)
-    padding-bottom: rem(24)
+    @include adaptiveValue('padding-bottom', 16, 24, 425, 320)
 
   @include mediaW($mobile-s)
-    padding-bottom: rem(16)
+    @include adaptiveValue('padding-bottom', 8, 16, 320, 280)
 
   @include mediaW($mobile-xs)
     padding-bottom: rem(8)

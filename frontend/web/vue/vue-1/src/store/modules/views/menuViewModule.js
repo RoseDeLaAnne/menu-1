@@ -134,79 +134,32 @@ export const menuViewModule = {
   }),
   getters: {
     dishesGetter(state, getters, rootState, rootGetters) {
-      var dishes = [];
-      var newDishes = [];
-      var newDishes2 = [];
-      var newDishes3 = [];
-
       if (!rootGetters.categoriesIsEmpty && !rootGetters.typesIsEmpty) {
-        for (const category of rootState.categories) {
-          if (category.selected) {
-            dishes.push(
-              state.dishes.filter((dish) => dish.category === category.name)
-            );
-          }
-        }
-
-        for (const dish of dishes) {
-          for (const dishNested of dish) {
-            newDishes.push(dishNested);
-          }
-        }
-
-        for (const type of rootState.types) {
-          if (type.selected) {
-            newDishes2.push(
-              newDishes.filter((dish) =>
-                dish.types.some((dishType) => dishType.name === type.name)
+        return state.dishes.filter(
+          (dish) =>
+            rootGetters.selectedCategories.some((category) =>
+              category.name.includes(dish.category.name)
+            ) &&
+            dish.types.some((dishType) =>
+              rootGetters.selectedTypes.some((type) =>
+                type.name.includes(dishType.name)
               )
-            );
-          }
-        }
-        for (const dish of newDishes2) {
-          for (const dishNested of dish) {
-            newDishes3.push(dishNested);
-          }
-        }
-
-        return newDishes3;
+            )
+        );
       } else if (!rootGetters.categoriesIsEmpty && rootGetters.typesIsEmpty) {
-        for (const category of rootState.categories) {
-          if (category.selected) {
-            dishes.push(
-              state.dishes.filter(
-                (dish) => dish.category.name === category.name
-              )
-            );
-          }
-        }
-
-        for (const dish of dishes) {
-          for (const dishNested of dish) {
-            newDishes.push(dishNested);
-          }
-        }
-
-        return newDishes;
-      } else if (rootGetters.categoriesIsEmpty && rootGetters.typesIsEmpty) {
-        return state.dishes;
+        return state.dishes.filter((dish) =>
+          rootGetters.selectedCategories.some((category) =>
+            category.name.includes(dish.category.name)
+          )
+        );
       } else if (rootGetters.categoriesIsEmpty && !rootGetters.typesIsEmpty) {
-        for (const type of rootState.types) {
-          if (type.selected) {
-            newDishes2.push(
-              state.dishes.filter((dish) =>
-                dish.types.some((dishType) => dishType.name === type.name)
-              )
-            );
-          }
-        }
-        for (const dish of newDishes2) {
-          for (const dishNested of dish) {
-            newDishes3.push(dishNested);
-          }
-        }
-
-        return newDishes3;
+        return state.dishes.filter((dish) =>
+          dish.types.some((dishType) =>
+            rootGetters.selectedTypes.some((type) =>
+              type.name.includes(dishType.name)
+            )
+          )
+        );
       } else {
         return state.dishes;
       }
